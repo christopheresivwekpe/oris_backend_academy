@@ -1,8 +1,6 @@
 const express = require('express');
 const STUDENT_DATA = require('../data/studentData');
 const Student = require('../models/Student');
-const Class = require('../models/Class');
-const Subject = require('../models/Subject');
 const expressAsyncHandler = require('express-async-handler');
 
 const studentRouter = express.Router();
@@ -127,10 +125,11 @@ studentRouter.get(
         {...nameFilter}
       ]
     })
-    .populate('classroom', Class)
+    .populate('classroom')
     .sort({ _id: -1 })
     .skip(PAGE_SIZE * page)
-    .limit(PAGE_SIZE);
+    .limit(PAGE_SIZE)
+    .clone();
 
     res.status(200).send({
       message: "success",
