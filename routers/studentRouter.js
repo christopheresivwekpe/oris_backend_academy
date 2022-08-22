@@ -21,6 +21,12 @@ studentRouter.post(
     const { firstName, otherName, lastName, gender, classroom, subjects } = req.body
 
     /** VALIDATING DATA **/
+    if (gender !== "male" || gender !== "female") {
+      return res.status(401).send({ 
+        message: "student must be a male or female" 
+      });
+    }
+
     if (!subjects || subjects.length < 5 || subjects.length > 9) {
       return res.status(401).send({ 
         message: "student must take a minimum of 5 subjects and maximum of 9 subjects" 
@@ -148,6 +154,12 @@ studentRouter.put(
     const { firstName, otherName, lastName, gender, classroom, subjects } = req.body;
 
     /** VALIDATING SUBJECTS **/
+    if (gender !== "male" || gender !== "female") {
+      return res.status(401).send({ 
+        message: "student must be a male or female" 
+      });
+    }
+    
     if (!subjects || subjects.length < 5 || subjects.length > 9) {
       return res.status(401).send({ 
         message: "student must take a minimum of 5 subjects and maximum of 9 subjects" 
@@ -183,11 +195,20 @@ studentRouter.delete(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
+    const student = await Student.findById(id);
+
+    /**VALIDATE ID PARAMS */
+    if (!student) {
+      return res.status(400).send({ 
+        message: "Student does not exist" 
+      });
+    }
+
     await Student.findOneAndRemove({
       _id: id
     });
 
-    res.status(201).send({ message: 'deleted successfully' });
+    res.status(200).send({ message: 'deleted successfully' });
   })
 );
 

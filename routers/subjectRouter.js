@@ -119,11 +119,20 @@ subjectRouter.delete(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
+    const subject = await Subject.findById(id);
+
+    /**VALIDATE ID PARAMS */
+    if (!subject) {
+      return res.status(400).send({ 
+        message: "Subject does not exist" 
+      });
+    }
+    
     await Subject.findOneAndRemove({
       _id: id
     });
 
-    res.status(201).send({ message: 'deleted successfully' });
+    res.status(200).send({ message: 'deleted successfully' });
   })
 );
 
