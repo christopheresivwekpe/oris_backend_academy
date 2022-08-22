@@ -59,7 +59,7 @@ classRouter.put(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { duration } = req.body;
+    const { classAdvisor } = req.body;
 
     const level = await Class.findById(id);
 
