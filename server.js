@@ -2,6 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+/** 
+ * HEROKU URL: https://oris-backend-academy.herokuapp.com 
+ * GITHUB URL: https://github.com/christopheresivwekpe/oris_backend_academy
+ * POSTMAN DOCUMENTATION: https://documenter.getpostman.com/view/17862810/VUqrNGgh
+ ***/
+
 /**ROUTERS */
 const studentRouter = require('./routers/studentRouter.js');
 const classRouter = require('./routers/classRouter.js');
